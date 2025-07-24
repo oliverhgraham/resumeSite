@@ -1,0 +1,115 @@
+:root {
+  --bg-gray: #f0f0f0;
+  --blue: #00aaff;
+  --text: #333;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-gray);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--text);
+}
+
+canvas#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  background: rgba(230, 240, 255, 0.85);
+  padding: 40px 60px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 170, 255, 0.4);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px var(--blue);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* keep your existing .links a { … background-color: white; z-index:1; } */
+
+.links a {
+  position: relative;
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  color: var(--blue);
+  background-color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: transform 0.2s ease;
+  z-index: 1; /* text and white bg stays on top */
+}
+
+/* Outer ring pseudo-element */
+.links a::before {
+  content: '';
+  position: absolute;
+  top: -6px; 
+  left: -6px; 
+  right: -6px; 
+  bottom: -6px;
+  border-radius: 50px;
+  border: 2px solid var(--blue);
+  box-shadow: 0 0 15px var(--blue);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0; /* behind the white background */
+}
+
+/* On hover, fade in & pulse the ring only */
+.links a:hover::before {
+  opacity: 1;
+  animation: pulseRing 1.5s infinite;
+}
+
+@keyframes pulseRing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+.links a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--blue);
+}
+
+.links a:hover::before {
+  opacity: 1;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
